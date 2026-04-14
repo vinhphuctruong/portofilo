@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio - Professional Developer">
+  <title>Portfolio | Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Portfolio<span class="logo-bracket">/&gt;</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#hero" class="nav-link active">Trang chủ</a>
+        <a href="#about" class="nav-link">Giới thiệu</a>
+        <a href="#projects" class="nav-link">Dự án</a>
+        <a href="#contact" class="nav-link">Liên hệ</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-greeting" id="heroGreeting">Xin chào, tôi là</p>
+        <h1 class="hero-name" id="heroName">Developer</h1>
+        <p class="hero-title" id="heroTitle">Full-Stack Developer</p>
+        <p class="hero-bio" id="heroBio">Đam mê xây dựng các ứng dụng web hiện đại.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Xem dự án
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Liên hệ
+          </a>
+          <a href="" class="btn btn-ghost" id="heroResume" style="display:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Tải CV
+          </a>
+        </div>
+      </div>
+      <div class="hero-avatar-wrapper">
+        <div class="hero-avatar" id="heroAvatar">
+          <div class="avatar-placeholder">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+        </div>
+        <div class="avatar-ring"></div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="title-accent">01.</span> Giới thiệu
+      </h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p id="aboutBio">Loading...</p>
+          <div class="about-info" id="aboutInfo">
+            <!-- Dynamic info items -->
+          </div>
+        </div>
+        <div class="about-skills">
+          <h3 class="skills-title">Kỹ năng</h3>
+          <div class="skills-grid" id="skillsGrid">
+            <!-- Dynamic skills -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section section-alt" id="projects">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="title-accent">02.</span> Dự án
+      </h2>
+      <div class="projects-filter" id="projectsFilter">
+        <button class="filter-btn active" data-filter="all">Tất cả</button>
+      </div>
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Dynamic project cards -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="title-accent">03.</span> Liên hệ
+      </h2>
+      <div class="contact-content">
+        <div class="contact-text">
+          <p>Bạn có ý tưởng dự án hoặc muốn hợp tác? Hãy liên hệ với tôi!</p>
+        </div>
+        <div class="contact-cards" id="contactCards">
+          <!-- Dynamic contact cards -->
+        </div>
+        <div class="contact-socials" id="contactSocials">
+          <!-- Dynamic social links -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Thiết kế & Phát triển với <span class="heart">❤</span> bởi <span id="footerName">Developer</span></p>
+      <p class="footer-year">&copy; <span id="footerYear"></span></p>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
