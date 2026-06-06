@@ -139,11 +139,7 @@ function renderProfile() {
   // Logo
   const navLogo = document.querySelector('.nav-logo');
   if (navLogo) {
-    if (p.logo) {
-      navLogo.innerHTML = `<img src="${p.logo}" alt="Logo" style="height: 80px; width: 80px; object-fit: cover; border-radius: 50%; display: block;">`;
-    } else {
-      navLogo.innerHTML = `<div class="logo-toggle"></div><span>YourLogo</span>`;
-    }
+    navLogo.innerHTML = `<div class="logo-toggle"></div><span>YourLogo</span>`;
   }
 
   // Hero Section

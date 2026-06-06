@@ -127,10 +127,6 @@ function fillProfileForm() {
     document.getElementById('avatarPreview').innerHTML = `<img src="${p.avatar}" alt="Avatar">`;
   }
   
-  // Logo preview
-  if (p.logo) {
-    document.getElementById('logoPreview').innerHTML = `<img src="${p.logo}" alt="Logo" style="object-fit: contain;">`;
-  }
 
   // Skills
   profileSkills = Array.isArray(p.skills) ? [...p.skills] : [];
@@ -153,16 +149,6 @@ function initProfileForm() {
     }
   });
 
-  // Logo upload
-  document.getElementById('logoFile').addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const url = await uploadImage(file);
-    if (url) {
-      document.getElementById('logoPreview').innerHTML = `<img src="${url}" alt="Logo" style="object-fit: contain;">`;
-      currentProfile.logo = url;
-    }
-  });
 
   // Skills input
   initTagInput('skillInput', 'skillsTags', profileSkills);
@@ -183,7 +169,6 @@ function initProfileForm() {
         title: document.getElementById('profileTitle').value,
         bio: document.getElementById('profileBio').value,
         avatar: currentProfile.avatar || '',
-        logo: currentProfile.logo || '',
         email: document.getElementById('profileEmail').value,
         phone: document.getElementById('profilePhone').value,
         location: document.getElementById('profileLocation').value,
