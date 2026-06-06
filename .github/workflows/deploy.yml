@@ -28,6 +28,10 @@ jobs:
               git clone https://github.com/${{ github.repository }}.git .
             fi
             
+            # Cấp quyền cho container (user node - 1000) ghi file
+            mkdir -p data public/uploads
+            chown -R 1000:1000 data public/uploads
+            
             # Khởi động lại container
             docker compose up -d --build
             
