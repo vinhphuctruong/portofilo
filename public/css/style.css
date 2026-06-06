@@ -799,6 +799,12 @@ body {
 
 /* Responsive */
 @media (max-width: 992px) {
+  .navbar {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+  }
+
   .hero-container {
     grid-template-columns: 1fr;
     text-align: center;
@@ -847,8 +853,13 @@ body {
 }
 
 @media (max-width: 768px) {
-  .hero-greeting { font-size: 2.5rem; }
-  .hero-name { font-size: 3rem; }
-  .hero-title { font-size: 2.5rem; }
+  .hero { padding-top: 140px; }
+  .hero-greeting { font-size: 1.8rem; }
+  .hero-name { 
+    font-size: 2.2rem; 
+    word-break: keep-all; 
+    white-space: nowrap; 
+  }
+  .hero-title { font-size: 1.8rem; }
   .hero-graphic { transform: scale(0.6); }
 }
