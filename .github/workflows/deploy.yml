@@ -1,0 +1,38 @@
+name: Deploy Portfolio to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "Starting deployment..."
+            # Tạo thư mục nếu chưa có
+            mkdir -p /var/www/projects/portfolio/source_code
+            cd /var/www/projects/portfolio/source_code
+            
+            # Khởi tạo git nếu chưa có hoặc pull code mới
+            if [ -d ".git" ]; then
+              git pull origin main
+            else
+              git clone https://github.com/${{ github.repository }}.git .
+            fi
+            
+            # Copy file docker-compose.yml và .env ra ngoài thư mục dự án (nếu cần cấu trúc riêng)
+            cp docker-compose.yml ../
+            
+            # Khởi động lại container
+            cd ../
+            docker compose up -d --build
+            
+            echo "Deployment completed successfully!"
