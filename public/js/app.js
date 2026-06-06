@@ -17,10 +17,43 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadProjects();
   initMobileMenu();
   initSearch();
+  initTheme();
   initNavbar();
   initScrollReveal();
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 });
+
+function initTheme() {
+  const themeToggle = document.getElementById('themeToggle');
+  if (!themeToggle) return;
+  
+  const sunIcon = themeToggle.querySelector('.sun-icon');
+  const moonIcon = themeToggle.querySelector('.moon-icon');
+  
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  if (currentTheme === 'light') {
+    document.body.classList.add('light-theme');
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  } else {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    
+    if (isLight) {
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'block';
+    } else {
+      sunIcon.style.display = 'block';
+      moonIcon.style.display = 'none';
+    }
+  });
+}
 
 function initMobileMenu() {
   const toggle = document.getElementById('navToggle');
@@ -135,12 +168,6 @@ function renderProfile() {
 
   // Update page title
   document.title = `${p.name} | ${p.title}`;
-
-  // Logo
-  const navLogo = document.querySelector('.nav-logo');
-  if (navLogo) {
-    navLogo.innerHTML = `<div class="logo-toggle"></div><span>YourLogo</span>`;
-  }
 
   // Hero Section
   document.getElementById('heroName').textContent = p.name || 'Admin';

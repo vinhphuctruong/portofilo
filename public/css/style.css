@@ -10,10 +10,22 @@
   
   --card-bg: rgba(255, 255, 255, 0.03);
   --border-color: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(26, 26, 26, 0.8);
+  --nav-bg-mobile: rgba(26, 26, 26, 0.95);
 
   /* Fonts */
   --font-primary: 'Outfit', sans-serif;
   --font-secondary: 'Inter', sans-serif;
+}
+
+body.light-theme {
+  --bg-color: #f4f4f5;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --card-bg: rgba(0, 0, 0, 0.05);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --nav-bg-mobile: rgba(255, 255, 255, 0.95);
 }
 
 * {
@@ -50,7 +62,7 @@ body {
 }
 
 .navbar.scrolled {
-  background: rgba(26, 26, 26, 0.8);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   padding: 1rem 0;
   border-bottom: 1px solid var(--border-color);
@@ -65,35 +77,22 @@ body {
   align-items: center;
 }
 
-.nav-logo {
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text-primary);
-  font-family: var(--font-primary);
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-.logo-toggle {
-  width: 40px;
-  height: 20px;
-  border: 2px solid var(--lime);
-  border-radius: 20px;
-  position: relative;
-}
-
-.logo-toggle::after {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: var(--lime);
+  justify-content: center;
+  padding: 8px;
   border-radius: 50%;
-  top: 50%;
-  left: 4px;
-  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--lime);
+  background: var(--card-bg);
 }
 
 .nav-links {
@@ -805,7 +804,7 @@ body {
 /* Responsive */
 @media (max-width: 992px) {
   .navbar {
-    background: rgba(26, 26, 26, 0.95);
+    background: var(--nav-bg-mobile);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
   }
@@ -837,7 +836,7 @@ body {
     top: 100%;
     left: 0;
     width: 100%;
-    background: rgba(26, 26, 26, 0.95);
+    background: var(--nav-bg-mobile);
     backdrop-filter: blur(10px);
     flex-direction: column;
     padding: 1.5rem;
@@ -865,8 +864,5 @@ body {
   }
   .hero-title { font-size: 1.8rem; }
   .hero-graphic { transform: scale(0.6); }
-  .nav-logo img {
-    height: 60px !important;
-    width: 60px !important;
-  }
+
 }
