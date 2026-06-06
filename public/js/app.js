@@ -38,10 +38,27 @@ function initMobileMenu() {
 
 function initSearch() {
   const searchInput = document.getElementById('searchInput');
+  const searchBtn = searchInput ? searchInput.nextElementSibling : null;
+
+  const doSearch = () => {
+    // Scroll to projects section if not already in view
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      const rect = projectsSection.getBoundingClientRect();
+      if (rect.top > window.innerHeight || rect.bottom < 0) {
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    renderProjects();
+  };
+
   if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      renderProjects();
-    });
+    searchInput.addEventListener('input', doSearch);
+  }
+  
+  if (searchBtn) {
+    searchBtn.style.cursor = 'pointer';
+    searchBtn.addEventListener('click', doSearch);
   }
 }
 
@@ -50,8 +67,8 @@ function createProjectCard(project) {
   card.className = 'project-card reveal';
   
   const techHtml = project.tech_stack ? project.tech_stack.map(t => `<span class="tech-tag">${t}</span>`).join('') : '';
-  const githubHtml = project.github_url ? `<a href="${project.github_url}" target="_blank" rel="noopener" class="project-link project-link-github">${getIcon('github', 16)} GitHub</a>` : '';
-  const liveHtml = project.live_url ? `<a href="${project.live_url}" target="_blank" rel="noopener" class="project-link project-link-live">${getIcon('external-link', 16)} Live Demo</a>` : '';
+  const githubHtml = project.github_url ? `<a href="${project.github_url}" target="_blank" rel="noopener" class="project-link project-link-github">${getIcon('github', 16)} Mã nguồn</a>` : '';
+  const liveHtml = project.live_url ? `<a href="${project.live_url}" target="_blank" rel="noopener" class="project-link project-link-live">${getIcon('external-link', 16)} Xem thử</a>` : '';
 
   const imageHtml = project.image
     ? `<img src="${project.image}" alt="${project.title}" loading="lazy" />`
@@ -65,7 +82,7 @@ function createProjectCard(project) {
   card.innerHTML = `
     <div class="project-image">
       ${imageHtml}
-      ${project.featured ? '<span class="project-featured-badge">Featured</span>' : ''}
+      ${project.featured ? '<span class="project-featured-badge">Nổi bật</span>' : ''}
       ${project.category ? `<span class="project-category-badge">${project.category}</span>` : ''}
     </div>
     <div class="project-body">
