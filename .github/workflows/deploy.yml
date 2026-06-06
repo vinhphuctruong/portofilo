@@ -28,11 +28,7 @@ jobs:
               git clone https://github.com/${{ github.repository }}.git .
             fi
             
-            # Copy file docker-compose.yml và .env ra ngoài thư mục dự án (nếu cần cấu trúc riêng)
-            cp docker-compose.yml ../
-            
             # Khởi động lại container
-            cd ../
             docker compose up -d --build
             
             echo "Deployment completed successfully!"
