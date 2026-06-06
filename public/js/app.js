@@ -62,7 +62,7 @@ function renderProfile() {
   const navLogo = document.querySelector('.nav-logo');
   if (navLogo) {
     if (p.logo) {
-      navLogo.innerHTML = `<img src="${p.logo}" alt="Logo" style="height: 48px; width: auto; object-fit: contain; display: block;">`;
+      navLogo.innerHTML = `<img src="${p.logo}" alt="Logo" style="height: 64px; width: auto; object-fit: contain; display: block;">`;
     } else {
       navLogo.innerHTML = `<div class="logo-toggle"></div><span>YourLogo</span>`;
     }
