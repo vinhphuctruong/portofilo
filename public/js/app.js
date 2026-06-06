@@ -50,7 +50,12 @@ function renderProfile() {
   // Hero
   document.getElementById('heroName').textContent = p.name;
   document.getElementById('heroTitle').textContent = p.title;
-  document.getElementById('heroBio').textContent = p.bio;
+  
+  const heroBioEl = document.getElementById('heroBio');
+  if (p.bio) {
+    heroBioEl.innerHTML = p.bio.split('\n').filter(l => l.trim()).map(line => `<p>${line}</p>`).join('');
+  }
+  
   document.getElementById('footerName').textContent = p.name;
 
   // Avatar
@@ -68,7 +73,10 @@ function renderProfile() {
   }
 
   // About bio
-  document.getElementById('aboutBio').textContent = p.bio;
+  const aboutBioEl = document.getElementById('aboutBio');
+  if (p.bio) {
+    aboutBioEl.innerHTML = p.bio.split('\n').filter(l => l.trim()).map(line => `<p>${line}</p>`).join('');
+  }
 
   // About info items
   const infoContainer = document.getElementById('aboutInfo');
