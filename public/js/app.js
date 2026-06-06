@@ -152,7 +152,7 @@ function renderProfile() {
   
   const heroBioEl = document.getElementById('heroBio');
   if (p.bio) {
-    heroBioEl.innerHTML = p.bio.split('\n').filter(l => l.trim()).map(line => `<p>${line}</p>`).join('');
+    heroBioEl.textContent = p.bio;
   }
   
   document.getElementById('footerName').textContent = p.name;
@@ -174,7 +174,7 @@ function renderProfile() {
   // About bio
   const aboutBioEl = document.getElementById('aboutBio');
   if (p.bio) {
-    aboutBioEl.innerHTML = p.bio.split('\n').filter(l => l.trim()).map(line => `<p>${line}</p>`).join('');
+    aboutBioEl.textContent = p.bio;
   }
 
   // About info items
