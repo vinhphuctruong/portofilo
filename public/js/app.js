@@ -10,15 +10,76 @@ let projectsData = [];
 let categoriesData = [];
 let activeFilter = 'all';
 
-// --- Init ---
+// --- Initialization ---
 document.addEventListener('DOMContentLoaded', async () => {
   await loadCategories();
   loadProfile();
   loadProjects();
+  initMobileMenu();
+  initSearch();
   initNavbar();
   initScrollReveal();
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 });
+
+function initMobileMenu() {
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('active');
+    });
+    // Close menu when clicking a link
+    links.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => links.classList.remove('active'));
+    });
+  }
+}
+
+function initSearch() {
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      renderProjects();
+    });
+  }
+}
+
+function createProjectCard(project) {
+  const card = document.createElement('div');
+  card.className = 'project-card reveal';
+  
+  const techHtml = project.tech_stack ? project.tech_stack.map(t => `<span class="tech-tag">${t}</span>`).join('') : '';
+  const githubHtml = project.github_url ? `<a href="${project.github_url}" target="_blank" rel="noopener" class="project-link project-link-github">${getIcon('github', 16)} GitHub</a>` : '';
+  const liveHtml = project.live_url ? `<a href="${project.live_url}" target="_blank" rel="noopener" class="project-link project-link-live">${getIcon('external-link', 16)} Live Demo</a>` : '';
+
+  const imageHtml = project.image
+    ? `<img src="${project.image}" alt="${project.title}" loading="lazy" />`
+    : `<div class="project-image-placeholder">
+         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+           <polyline points="21 15 16 10 5 21"/>
+         </svg>
+       </div>`;
+
+  card.innerHTML = `
+    <div class="project-image">
+      ${imageHtml}
+      ${project.featured ? '<span class="project-featured-badge">Featured</span>' : ''}
+      ${project.category ? `<span class="project-category-badge">${project.category}</span>` : ''}
+    </div>
+    <div class="project-body">
+      <h3 class="project-title">${project.title}</h3>
+      <p class="project-description">${project.description || ''}</p>
+      <div class="project-tech">${techHtml}</div>
+      <div class="project-links">
+        ${liveHtml}
+        ${githubHtml}
+      </div>
+    </div>
+  `;
+  return card;
+}
 
 // --- API Calls ---
 async function loadCategories() {
@@ -62,7 +123,7 @@ function renderProfile() {
   const navLogo = document.querySelector('.nav-logo');
   if (navLogo) {
     if (p.logo) {
-      navLogo.innerHTML = `<img src="${p.logo}" alt="Logo" style="height: 80px; width: auto; object-fit: contain; display: block;">`;
+      navLogo.innerHTML = `<img src="${p.logo}" alt="Logo" style="height: 80px; width: 80px; object-fit: cover; border-radius: 50%; display: block;">`;
     } else {
       navLogo.innerHTML = `<div class="logo-toggle"></div><span>YourLogo</span>`;
     }
@@ -82,7 +143,7 @@ function renderProfile() {
   // Avatar
   const avatarEl = document.getElementById('heroAvatar');
   if (p.avatar) {
-    avatarEl.innerHTML = `<img src="${p.avatar}" alt="${p.name}" />`;
+    avatarEl.innerHTML = `<img src="${p.avatar}" alt="${p.name}" style="border-radius: 50%;" />`;
   }
 
   // Resume button
@@ -243,56 +304,18 @@ function renderProjects() {
     ? projectsData
     : projectsData.filter(p => p.category === activeFilter);
 
-  if (filtered.length === 0) {
-    grid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 3rem;">Chưa có dự án nào.</p>`;
+  // Also trigger search logic if there's text in searchInput
+  const searchInput = document.getElementById('searchInput');
+  const term = searchInput ? searchInput.value.toLowerCase() : '';
+  const searchedFiltered = term ? filtered.filter(p => p.title.toLowerCase().includes(term) || (p.tech_stack && p.tech_stack.some(t => t.toLowerCase().includes(term)))) : filtered;
+
+  if (searchedFiltered.length === 0) {
+    grid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 3rem;">Không tìm thấy dự án nào.</p>`;
     return;
   }
 
-  filtered.forEach((project, i) => {
-    const card = document.createElement('div');
-    card.className = 'project-card reveal';
-    card.style.transitionDelay = `${i * 0.1}s`;
-
-    const imageHtml = project.image
-      ? `<img src="${project.image}" alt="${project.title}" loading="lazy" />`
-      : `<div class="project-image-placeholder">
-           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-             <polyline points="21 15 16 10 5 21"/>
-           </svg>
-         </div>`;
-
-    const techHtml = (project.tech_stack || [])
-      .map(t => `<span class="tech-tag">${t}</span>`)
-      .join('');
-
-    let linksHtml = '';
-    if (project.live_url) {
-      linksHtml += `<a href="${project.live_url}" target="_blank" rel="noopener" class="project-link project-link-live">
-        ${getIcon('external-link', 16)} Live Demo
-      </a>`;
-    }
-    if (project.github_url) {
-      linksHtml += `<a href="${project.github_url}" target="_blank" rel="noopener" class="project-link project-link-github">
-        ${getIcon('github', 16)} GitHub
-      </a>`;
-    }
-
-    card.innerHTML = `
-      <div class="project-image">
-        ${imageHtml}
-        ${project.featured ? '<span class="project-featured-badge">Featured</span>' : ''}
-        ${project.category ? `<span class="project-category-badge">${project.category}</span>` : ''}
-      </div>
-      <div class="project-body">
-        <h3 class="project-title">${project.title}</h3>
-        <p class="project-description">${project.description}</p>
-        <div class="project-tech">${techHtml}</div>
-        <div class="project-links">${linksHtml}</div>
-      </div>
-    `;
-
-    grid.appendChild(card);
+  searchedFiltered.forEach(project => {
+    grid.appendChild(createProjectCard(project));
   });
 
   // Trigger scroll reveal for new cards
