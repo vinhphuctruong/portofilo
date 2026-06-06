@@ -12,6 +12,9 @@
   --border-color: rgba(255, 255, 255, 0.1);
   --nav-bg: rgba(26, 26, 26, 0.8);
   --nav-bg-mobile: rgba(26, 26, 26, 0.95);
+  
+  --search-bg: #ffffff;
+  --search-color: #000000;
 
   /* Fonts */
   --font-primary: 'Outfit', sans-serif;
@@ -26,6 +29,9 @@ body.light-theme {
   --border-color: rgba(0, 0, 0, 0.1);
   --nav-bg: rgba(255, 255, 255, 0.9);
   --nav-bg-mobile: rgba(255, 255, 255, 0.95);
+  
+  --search-bg: #e4e4e7;
+  --search-color: #18181b;
 }
 
 * {
@@ -122,7 +128,7 @@ body {
 .search-bar {
   display: flex;
   align-items: center;
-  background: var(--text-primary);
+  background: var(--search-bg);
   border-radius: 20px;
   padding: 0.3rem 0.8rem;
   height: 32px;
@@ -134,11 +140,11 @@ body {
   outline: none;
   font-size: 0.85rem;
   width: 120px;
-  color: #000;
+  color: var(--search-color);
 }
 
 .search-bar svg {
-  color: #000;
+  color: var(--search-color);
   cursor: pointer;
 }
 
