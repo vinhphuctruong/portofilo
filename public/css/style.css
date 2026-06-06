@@ -16,6 +16,8 @@
   --search-bg: #ffffff;
   --search-color: #000000;
   --accent-color: var(--lime);
+  --accent-bg: rgba(200, 255, 44, 0.1);
+  --accent-hover: #e0ff66;
 
   /* Fonts */
   --font-primary: 'Outfit', sans-serif;
@@ -34,6 +36,8 @@ body.light-theme {
   --search-bg: #e4e4e7;
   --search-color: #18181b;
   --accent-color: #2563eb;
+  --accent-bg: rgba(37, 99, 235, 0.1);
+  --accent-hover: #1d4ed8;
 }
 
 * {
@@ -278,12 +282,12 @@ body {
 }
 
 .btn-get-started {
-  color: var(--lime);
+  color: var(--accent-color);
 }
 
 .btn-get-started:hover {
   transform: translateX(5px);
-  color: #e0ff66;
+  color: var(--accent-hover);
 }
 
 .btn-ghost {
@@ -743,8 +747,8 @@ body {
 
 .tech-tag {
   font-size: 0.75rem;
-  color: var(--lime);
-  background: rgba(200, 255, 44, 0.1);
+  color: var(--accent-color);
+  background: var(--accent-bg);
   padding: 2px 8px;
   border-radius: 4px;
 }
