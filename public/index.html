@@ -7,7 +7,7 @@
   <title>Portfolio | Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -15,81 +15,147 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        <span class="logo-bracket">&lt;</span>Portfolio<span class="logo-bracket">/&gt;</span>
+        <div class="logo-toggle"></div>
+        <span>YourLogo</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#hero" class="nav-link active">Trang chủ</a>
-        <a href="#about" class="nav-link">Giới thiệu</a>
-        <a href="#projects" class="nav-link">Dự án</a>
-        <a href="#contact" class="nav-link">Liên hệ</a>
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#projects" class="nav-link">My Projects</a>
+        <a href="#about" class="nav-link">About Me</a>
+        <a href="#contact" class="nav-link">Contact Me</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-right">
+        <div class="search-bar">
+          <input type="text" placeholder="Search...">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
-      <div class="hero-orb hero-orb-3"></div>
-      <div class="hero-grid"></div>
+    <div class="hero-bg-curves">
+      <svg class="curve-1" viewBox="0 0 500 500" preserveAspectRatio="none"><path d="M-50,250 C150,50 350,450 550,250" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="20"/></svg>
+      <svg class="curve-2" viewBox="0 0 500 500" preserveAspectRatio="none"><path d="M-50,100 C200,400 400,0 550,300" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="15"/></svg>
     </div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <p class="hero-greeting" id="heroGreeting">Xin chào, tôi là</p>
-        <h1 class="hero-name" id="heroName">Developer</h1>
-        <p class="hero-title" id="heroTitle">Full-Stack Developer</p>
-        <p class="hero-bio" id="heroBio">Đam mê xây dựng các ứng dụng web hiện đại.</p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-            Xem dự án
-          </a>
-          <a href="#contact" class="btn btn-outline">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Liên hệ
-          </a>
-          <a href="" class="btn btn-ghost" id="heroResume" style="display:none;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            Tải CV
-          </a>
-        </div>
-      </div>
-      <div class="hero-avatar-wrapper">
-        <div class="hero-avatar" id="heroAvatar">
-          <div class="avatar-placeholder">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    
+    <div class="container hero-container">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="greeting-wrapper">
+            <span class="hero-greeting" id="heroGreeting">I'M</span>
+            <h1 class="hero-name" id="heroName">NOAH</h1>
           </div>
+          <h2 class="hero-title" id="heroTitle">WEB DESIGNER</h2>
+          
+          <p class="hero-bio" id="heroBio">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+          
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-get-started">
+              Get Started 
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a href="" class="btn btn-ghost" id="heroResume" style="display:none;">Download CV</a>
+          </div>
+
+          <div class="services-wrapper">
+            <p class="services-label">SERVICES I'M PROVIDING</p>
+            <div class="services-buttons">
+              <span class="service-pill primary">UI DESIGN</span>
+              <span class="service-pill outline">UX DESIGN</span>
+            </div>
+          </div>
+
+          <p class="hero-copyright">Your company © <span id="footerYear">2023</span>. All rights reserved</p>
+          <span id="footerName" style="display:none;"></span>
         </div>
-        <div class="avatar-ring"></div>
       </div>
-    </div>
-    <div class="scroll-indicator">
-      <div class="scroll-arrow"></div>
+
+      <!-- Right Graphic -->
+      <div class="hero-graphic">
+        <div class="graphic-canvas">
+          <!-- Main Glass Card -->
+          <div class="glass-card">
+            <div class="window-controls">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="card-content">
+              <!-- Avatar -->
+              <div class="hero-avatar" id="heroAvatar">
+                <img src="https://via.placeholder.com/300" alt="Avatar Placeholder">
+              </div>
+              <!-- Right Side Form Lines inside Glass Card -->
+              <div class="form-lines">
+                <div class="search-line">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <div class="line w-100"></div>
+                <div class="line w-80"></div>
+                <div class="line w-60"></div>
+                
+                <div class="icon-boxes">
+                  <div class="icon-box user">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <div class="icon-box mail">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Elements -->
+          <div class="float-el code-bubble">
+            <span>&lt; / &gt;</span>
+          </div>
+          <div class="float-el java-badge">JAVA</div>
+          <div class="float-el css-bubble">CSS</div>
+          <div class="float-el gear-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          
+          <!-- Decorative Shapes -->
+          <div class="shape circle-pink"></div>
+          <div class="shape star-green">
+            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z"/></svg>
+          </div>
+          <div class="shape star-yellow">
+            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 0 L55 45 L100 50 L55 55 L50 100 L45 55 L0 50 L45 45 Z"/></svg>
+          </div>
+          <div class="shape triangle-pink"></div>
+          <div class="shape hand-pencil">
+            <!-- Simulated Hand Graphic with Pencil -->
+            <div class="hand-base"></div>
+            <div class="pencil"></div>
+          </div>
+          <div class="shape hand-search">
+            <!-- Simulated Hand Graphic touching search -->
+            <div class="hand-base"></div>
+          </div>
+          <div class="shape grid-pattern"></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- About Section -->
   <section class="section" id="about">
     <div class="container">
-      <h2 class="section-title">
-        <span class="title-accent">01.</span> Giới thiệu
-      </h2>
+      <h2 class="section-title">About Me</h2>
       <div class="about-grid">
         <div class="about-text">
           <p id="aboutBio">Loading...</p>
-          <div class="about-info" id="aboutInfo">
-            <!-- Dynamic info items -->
-          </div>
+          <div class="about-info" id="aboutInfo"></div>
         </div>
         <div class="about-skills">
-          <h3 class="skills-title">Kỹ năng</h3>
-          <div class="skills-grid" id="skillsGrid">
-            <!-- Dynamic skills -->
-          </div>
+          <h3 class="skills-title">My Skills</h3>
+          <div class="skills-grid" id="skillsGrid"></div>
         </div>
       </div>
     </div>
@@ -98,43 +164,32 @@
   <!-- Projects Section -->
   <section class="section section-alt" id="projects">
     <div class="container">
-      <h2 class="section-title">
-        <span class="title-accent">02.</span> Dự án
-      </h2>
+      <h2 class="section-title">My Projects</h2>
       <div class="projects-filter" id="projectsFilter">
-        <button class="filter-btn active" data-filter="all">Tất cả</button>
+        <button class="filter-btn active" data-filter="all">All</button>
       </div>
-      <div class="projects-grid" id="projectsGrid">
-        <!-- Dynamic project cards -->
-      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
     </div>
   </section>
 
   <!-- Contact Section -->
   <section class="section" id="contact">
     <div class="container">
-      <h2 class="section-title">
-        <span class="title-accent">03.</span> Liên hệ
-      </h2>
+      <h2 class="section-title">Contact Me</h2>
       <div class="contact-content">
         <div class="contact-text">
-          <p>Bạn có ý tưởng dự án hoặc muốn hợp tác? Hãy liên hệ với tôi!</p>
+          <p>Have a project idea or want to collaborate? Get in touch!</p>
         </div>
-        <div class="contact-cards" id="contactCards">
-          <!-- Dynamic contact cards -->
-        </div>
-        <div class="contact-socials" id="contactSocials">
-          <!-- Dynamic social links -->
-        </div>
+        <div class="contact-cards" id="contactCards"></div>
+        <div class="contact-socials" id="contactSocials"></div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <p>Thiết kế & Phát triển với <span class="heart">❤</span> bởi <span id="footerName">Developer</span></p>
-      <p class="footer-year">&copy; <span id="footerYear"></span></p>
+    <div class="container" style="display:none;">
+      <!-- Hidden footer to preserve app.js logic without duplicating UI -->
     </div>
   </footer>
 
