@@ -15,6 +15,7 @@
   
   --search-bg: #ffffff;
   --search-color: #000000;
+  --accent-color: var(--lime);
 
   /* Fonts */
   --font-primary: 'Outfit', sans-serif;
@@ -32,6 +33,7 @@ body.light-theme {
   
   --search-bg: #e4e4e7;
   --search-color: #18181b;
+  --accent-color: #2563eb;
 }
 
 * {
@@ -97,7 +99,7 @@ body {
 }
 
 .theme-toggle:hover {
-  color: var(--lime);
+  color: var(--accent-color);
   background: var(--card-bg);
 }
 
@@ -116,7 +118,7 @@ body {
 }
 
 .nav-link:hover, .nav-link.active {
-  color: var(--lime);
+  color: var(--accent-color);
 }
 
 .nav-right {
