@@ -30,6 +30,8 @@ db.exec(`
     linkedin TEXT DEFAULT '',
     website TEXT DEFAULT '',
     skills TEXT DEFAULT '[]',
+    services TEXT DEFAULT '["UI DESIGN", "UX DESIGN"]',
+    logo TEXT DEFAULT '',
     resume_url TEXT DEFAULT ''
   );
 
@@ -57,6 +59,12 @@ db.exec(`
 // Safe migration for existing DB
 try {
   db.exec("ALTER TABLE profile ADD COLUMN services TEXT DEFAULT '[\"UI DESIGN\", \"UX DESIGN\"]'");
+} catch (e) {
+  // Ignore if column already exists
+}
+
+try {
+  db.exec("ALTER TABLE profile ADD COLUMN logo TEXT DEFAULT ''");
 } catch (e) {
   // Ignore if column already exists
 }

@@ -47,8 +47,18 @@ function renderProfile() {
   // Update page title
   document.title = `${p.name} | ${p.title}`;
 
-  // Hero
-  document.getElementById('heroName').textContent = p.name;
+  // Logo
+  const navLogo = document.querySelector('.nav-logo');
+  if (navLogo) {
+    if (p.logo) {
+      navLogo.innerHTML = `<img src="${p.logo}" alt="Logo" style="height: 36px; width: auto; border-radius: 4px;">`;
+    } else {
+      navLogo.innerHTML = `<div class="logo-toggle"></div><span>YourLogo</span>`;
+    }
+  }
+
+  // Hero Section
+  document.getElementById('heroName').textContent = p.name || 'Admin';
   document.getElementById('heroTitle').textContent = p.title;
   
   const heroBioEl = document.getElementById('heroBio');

@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 // PUT /api/profile - Admin only
 router.put('/', authMiddleware, (req, res) => {
-  const { name, title, bio, avatar, email, phone, location, github, linkedin, website, skills, services, resume_url } = req.body;
+  const { name, title, bio, avatar, logo, email, phone, location, github, linkedin, website, skills, services, resume_url } = req.body;
 
   const skillsJson = Array.isArray(skills) ? JSON.stringify(skills) : (skills || '[]');
   const servicesJson = Array.isArray(services) ? JSON.stringify(services) : (services || '[]');
@@ -29,6 +29,7 @@ router.put('/', authMiddleware, (req, res) => {
       title = COALESCE(?, title),
       bio = COALESCE(?, bio),
       avatar = COALESCE(?, avatar),
+      logo = COALESCE(?, logo),
       email = COALESCE(?, email),
       phone = COALESCE(?, phone),
       location = COALESCE(?, location),
@@ -39,7 +40,7 @@ router.put('/', authMiddleware, (req, res) => {
       services = COALESCE(?, services),
       resume_url = COALESCE(?, resume_url)
     WHERE id = 1
-  `).run(name, title, bio, avatar, email, phone, location, github, linkedin, website, skillsJson, servicesJson, resume_url);
+  `).run(name, title, bio, avatar, logo, email, phone, location, github, linkedin, website, skillsJson, servicesJson, resume_url);
 
   const updated = db.prepare('SELECT * FROM profile WHERE id = 1').get();
   try { updated.skills = JSON.parse(updated.skills); } catch { updated.skills = []; }
