@@ -857,8 +857,6 @@ body {
   .hero-greeting { font-size: 1.8rem; }
   .hero-name { 
     font-size: 2.2rem; 
-    word-break: keep-all; 
-    white-space: nowrap; 
   }
   .hero-title { font-size: 1.8rem; }
   .hero-graphic { transform: scale(0.6); }
