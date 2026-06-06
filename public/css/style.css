@@ -246,6 +246,11 @@ body {
   max-width: 550px;
   line-height: 1.8;
   text-align: justify;
+  white-space: pre-line;
+}
+
+#aboutBio {
+  white-space: pre-line;
 }
 
 .hero-actions {
@@ -860,4 +865,8 @@ body {
   }
   .hero-title { font-size: 1.8rem; }
   .hero-graphic { transform: scale(0.6); }
+  .nav-logo img {
+    height: 60px !important;
+    width: 60px !important;
+  }
 }
