@@ -7,10 +7,12 @@ const API = '';
 // --- State ---
 let profileData = null;
 let projectsData = [];
+let categoriesData = [];
 let activeFilter = 'all';
 
 // --- Init ---
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadCategories();
   loadProfile();
   loadProjects();
   initNavbar();
@@ -19,6 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- API Calls ---
+async function loadCategories() {
+  try {
+    const res = await fetch(`${API}/api/categories`);
+    categoriesData = await res.json();
+  } catch (err) {
+    console.error('Failed to load categories:', err);
+  }
+}
+
 async function loadProfile() {
   try {
     const res = await fetch(`${API}/api/profile`);
@@ -202,7 +213,11 @@ function renderContact() {
 // --- Render Projects ---
 function renderFilters() {
   const filterContainer = document.getElementById('projectsFilter');
-  const categories = ['all', ...new Set(projectsData.map(p => p.category).filter(Boolean))];
+  let categoryNames = categoriesData.map(c => c.name);
+  if (categoryNames.length === 0) {
+    categoryNames = [...new Set(projectsData.map(p => p.category).filter(Boolean))];
+  }
+  const categories = ['all', ...categoryNames];
 
   filterContainer.innerHTML = '';
   categories.forEach(cat => {
