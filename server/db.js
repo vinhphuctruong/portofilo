@@ -46,7 +46,20 @@ db.exec(`
     sort_order INTEGER DEFAULT 0,
     created_at TEXT DEFAULT (datetime('now'))
   );
+
+  CREATE TABLE IF NOT EXISTS categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    sort_order INTEGER DEFAULT 0
+  );
 `);
+
+// Safe migration for existing DB
+try {
+  db.exec("ALTER TABLE profile ADD COLUMN services TEXT DEFAULT '[\"UI DESIGN\", \"UX DESIGN\"]'");
+} catch (e) {
+  // Ignore if column already exists
+}
 
 // Seed admin if not exists
 const adminExists = db.prepare('SELECT id FROM admins WHERE username = ?').get('admin');
@@ -110,6 +123,16 @@ if (projectCount.count === 0) {
   );
 
   console.log('✅ Sample projects created');
+}
+
+// Seed categories if empty
+const categoryCount = db.prepare('SELECT COUNT(*) as count FROM categories').get();
+if (categoryCount.count === 0) {
+  const insertCategory = db.prepare('INSERT INTO categories (name, sort_order) VALUES (?, ?)');
+  insertCategory.run('Web', 1);
+  insertCategory.run('AI/ML', 2);
+  insertCategory.run('Mobile', 3);
+  console.log('✅ Default categories created');
 }
 
 module.exports = db;

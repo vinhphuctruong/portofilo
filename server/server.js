@@ -55,6 +55,7 @@ app.post('/api/upload', authMiddleware, upload.single('image'), (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/projects', require('./routes/projects'));
+app.use('/api/categories', require('./routes/categories'));
 
 // SPA fallback - serve index.html for non-API routes
 app.get('*', (req, res) => {

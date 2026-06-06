@@ -112,6 +112,22 @@ function renderProfile() {
     badge.textContent = skill;
     skillsGrid.appendChild(badge);
   });
+  // Services
+  const services = p.services || [];
+  const servicesWrapper = document.getElementById('servicesWrapper');
+  const servicesButtons = document.getElementById('servicesButtons');
+  
+  if (services.length > 0) {
+    if (servicesWrapper) servicesWrapper.style.display = 'block';
+    if (servicesButtons) {
+      servicesButtons.innerHTML = services.map((srv, index) => {
+        const cls = index === 0 ? 'primary' : 'outline';
+        return `<span class="service-pill ${cls}">${srv}</span>`;
+      }).join('');
+    }
+  } else {
+    if (servicesWrapper) servicesWrapper.style.display = 'none';
+  }
 
   // Contact cards
   renderContact();

@@ -5,9 +5,12 @@
 const API = '';
 let currentProfile = null;
 let currentProjects = [];
+let currentCategories = [];
 let editingProjectId = null;
 let deleteProjectId = null;
+let editingCategoryId = null;
 let profileSkills = [];
+let profileServices = [];
 let projectTechStack = [];
 
 // --- Auth Helper ---
@@ -43,9 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initSidebar();
   initProfileForm();
   initProjectsUI();
+  initCategoriesUI();
   initSettingsForm();
 
   loadProfile();
+  loadCategories();
   loadProjects();
 });
 
@@ -125,6 +130,10 @@ function fillProfileForm() {
   // Skills
   profileSkills = Array.isArray(p.skills) ? [...p.skills] : [];
   renderSkillTags('skillsTags', profileSkills);
+
+  // Services
+  profileServices = Array.isArray(p.services) ? [...p.services] : [];
+  renderSkillTags('servicesTags', profileServices);
 }
 
 function initProfileForm() {
@@ -141,6 +150,9 @@ function initProfileForm() {
 
   // Skills input
   initTagInput('skillInput', 'skillsTags', profileSkills);
+  
+  // Services input
+  initTagInput('serviceInput', 'servicesTags', profileServices);
 
   // Form submit
   document.getElementById('profileForm').addEventListener('submit', async (e) => {
@@ -162,7 +174,8 @@ function initProfileForm() {
         linkedin: document.getElementById('profileLinkedin').value,
         website: document.getElementById('profileWebsite').value,
         resume_url: document.getElementById('profileResume').value,
-        skills: profileSkills
+        skills: profileSkills,
+        services: profileServices
       };
 
       const res = await fetch(`${API}/api/profile`, {
@@ -412,6 +425,110 @@ async function deleteProject() {
 }
 
 // ============================================
+// CATEGORIES
+// ============================================
+async function loadCategories() {
+  try {
+    const res = await fetch(`${API}/api/categories`);
+    currentCategories = await res.json();
+    renderCategoriesList();
+    populateCategoryDropdowns();
+  } catch (err) {
+    showToast('Không thể tải danh sách danh mục', 'error');
+  }
+}
+
+function renderCategoriesList() {
+  const container = document.getElementById('categoriesList');
+  if (currentCategories.length === 0) {
+    container.innerHTML = `<div class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <h3>Chưa có danh mục nào</h3>
+    </div>`;
+    return;
+  }
+  container.innerHTML = currentCategories.map(cat => `
+    <div class="project-row">
+      <div class="project-row-info">
+        <div class="project-row-title">${cat.name}</div>
+        <div class="project-row-meta"><span class="category-badge">Thứ tự: ${cat.sort_order || 0}</span></div>
+      </div>
+      <div class="project-row-actions">
+        <button class="btn-icon" title="Chỉnh sửa" onclick="editCategory(${cat.id})">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="btn-icon btn-icon-danger" title="Xóa" onclick="deleteCategory(${cat.id})">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function populateCategoryDropdowns() {
+  const select = document.getElementById('projectCategory');
+  select.innerHTML = currentCategories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+}
+
+function initCategoriesUI() {
+  document.getElementById('addCategoryBtn').addEventListener('click', () => {
+    editingCategoryId = null;
+    document.getElementById('categoryModalTitle').textContent = 'Thêm danh mục mới';
+    document.getElementById('categoryForm').reset();
+    openModal('categoryModal');
+  });
+
+  document.getElementById('categoryModalClose').addEventListener('click', () => closeModal('categoryModal'));
+  document.getElementById('categoryModalCancelBtn').addEventListener('click', () => closeModal('categoryModal'));
+  document.getElementById('categoryModalSaveBtn').addEventListener('click', saveCategory);
+}
+
+window.editCategory = function(id) {
+  const cat = currentCategories.find(c => c.id === id);
+  if (!cat) return;
+  editingCategoryId = id;
+  document.getElementById('categoryModalTitle').textContent = 'Chỉnh sửa danh mục';
+  document.getElementById('categoryName').value = cat.name;
+  document.getElementById('categorySortOrder').value = cat.sort_order || 0;
+  openModal('categoryModal');
+};
+
+async function saveCategory() {
+  const name = document.getElementById('categoryName').value.trim();
+  const sort_order = parseInt(document.getElementById('categorySortOrder').value) || 0;
+  if (!name) return showToast('Vui lòng nhập tên danh mục', 'error');
+  
+  const btn = document.getElementById('categoryModalSaveBtn');
+  btn.disabled = true;
+
+  try {
+    const url = editingCategoryId ? `${API}/api/categories/${editingCategoryId}` : `${API}/api/categories`;
+    const method = editingCategoryId ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify({ name, sort_order }) });
+    if (!res.ok) throw new Error((await res.json()).error || 'Failed');
+    showToast(editingCategoryId ? 'Đã cập nhật danh mục' : 'Thêm mới thành công', 'success');
+    closeModal('categoryModal');
+    loadCategories();
+  } catch (err) {
+    showToast('Lỗi: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+window.deleteCategory = async function(id) {
+  if (!confirm('Bạn có chắc muốn xóa danh mục này?')) return;
+  try {
+    const res = await fetch(`${API}/api/categories/${id}`, { method: 'DELETE', headers: authHeaders() });
+    if (!res.ok) throw new Error('Failed to delete');
+    showToast('Đã xóa thành công', 'success');
+    loadCategories();
+  } catch (err) {
+    showToast('Lỗi: ' + err.message, 'error');
+  }
+};
+
+// ============================================
 // SETTINGS
 // ============================================
 function initSettingsForm() {
@@ -514,6 +631,9 @@ window.removeTag = function(containerId, index) {
   if (containerId === 'skillsTags') {
     profileSkills.splice(index, 1);
     renderSkillTags(containerId, profileSkills);
+  } else if (containerId === 'servicesTags') {
+    profileServices.splice(index, 1);
+    renderSkillTags(containerId, profileServices);
   } else if (containerId === 'projectTechTags') {
     projectTechStack.splice(index, 1);
     renderSkillTags(containerId, projectTechStack);
